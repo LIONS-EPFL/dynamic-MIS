@@ -1,10 +1,10 @@
 # Maximum Independent Set: Self-Training through Dynamic Programming
 
-![ArXiv](https://img.shields.io/badge/Preprint-ArXiv-blue.svg)(https://arxiv.org/abs/2310.18672)
+[![ArXiv](https://img.shields.io/badge/Preprint-ArXiv-blue.svg)](https://arxiv.org/abs/2310.18672)
 
-<!-- ![Blogpost](https://img.shields.io/badge/BlogPost-site-red.svg)(https://grigorisg9gr.github.io/polynomial-nets/) -->
+<!-- [![Blogpost](https://img.shields.io/badge/BlogPost-site-red.svg)](https://grigorisg9gr.github.io/polynomial-nets/) -->
 
-Official implementation of several experiments in the paper ["**Maximum Independent Set: Self-Training through Dynamic Programming**"](https://arxiv.org/pdf/2310.18672.pdf) (NeurIPS'23).
+Official implementation of the paper ["**Maximum Independent Set: Self-Training through Dynamic Programming**"](https://arxiv.org/pdf/2310.18672.pdf) (NeurIPS'23).
 
 Both folders contain their respective experiments. Please follow the instructions below on how to run the experiments and reproduce the results. This repository contains implementations in [PyTorch](https://pytorch.org/) and [NetworkX](https://networkx.org/).
 
@@ -77,9 +77,9 @@ If you use this code or wish to reference the paper, please cite the following:
 **BibTeX**:
 
 ```bibtex
-@article{brusca2023maximum,
+@inproceedings{brusca2023maximum,
   title={Maximum Independent Set: Self-Training through Dynamic Programming},
   author={Brusca, Lorenzo and Quaedvlieg, Lars CPM and Skoulakis, Stratis and Chrysos, Grigorios G and Cevher, Volkan},
-  journal={arXiv preprint arXiv:2310.18672},
+  booktitle={Advances in neural information processing systems (NeurIPS)},
   year={2023}
 }
