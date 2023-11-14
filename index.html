@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Maximum Independent Set: Self-Training through Dynamic Programming">
+  <meta name="keywords" content="Graph Neural Networks, Dynamic Programming, Self-Supervised Learning">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Maximum Independent Set: Self-Training through Dynamic Programming</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <!--script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script-->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+  <script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <!-- <link rel="icon" href="./static/images/favicon.svg"> -->
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="https://www.epfl.ch/labs/lions/">
+      <span class="icon">
+          <i class="fas fa-home"></i>
+      </span>
+      </a>
+    </div>
+
+  </div>
+</nav>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Maximum Independent Set: Self-Training through Dynamic Programming</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=6f-Zv7YAAAAJ">Lorenzo Brusca</a>*,</span>
+            <span class="author-block">
+              <a href="https://lars-quaedvlieg.github.io/">Lars C.P.M. Quaedvlieg</a>*,</span>
+              <span class="author-block">
+                <a href="https://scholar.google.com/citations?user=Juo2Tk8AAAAJ">Stratis Skoulakis</a>*,</span>
+              <span class="author-block">
+                <a href="https://grigorisg9gr.github.io/">Grigorios G Chrysos</a>,</span>
+              <span class="author-block">
+                <a href="https://scholar.google.com/citations?user=hlWhzU8AAAAJ">Volkan Cevher</a>
+              </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">École Polytechnique Fédérale de Lausanne (EPFL), Switzerland</span>
+          </div>
+
+          <img src="./static/images/logos.jpg">
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <!-- <span class="link-block">
+                <a href="https://arxiv.org/pdf/2011.12948"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2011.12948"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span> -->
+              <span class="link-block">
+                <a href="https://arxiv.org/pdf/2310.18672"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2310.18672"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://github.com/LIONS-EPFL/dynamic-MIS"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+              <!-- Video Link. -->
+              <span class="link-block">
+                <a href="https://neurips.cc/virtual/2023/poster/70728"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                </a>
+              </span>
+              <!-- Dataset Link. -->
+              <!-- <span class="link-block">
+                <a href="https://github.com/google/nerfies/releases/tag/0.1"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="far fa-images"></i>
+                  </span>
+                  <span>Data</span>
+                  </a> -->
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- <section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="box">
+      <img src="./static/images/visual-intelligence.PNG">
+      <video id="teaser" autoplay="" muted="" loop="" playsinline="" height="100%" width="100%" poster="static/videos/loading.gif">
+        <source src="static/videos/palmer_trimmed.mp4" type="video/mp4">
+      </video>
+    </div>
+    <br>
+  </div>
+</section> -->
+
+
+<!-- USEFUL SECTION - static video with a caption -->
+<!--section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <video id="teaser" autoplay muted loop playsinline height="100%">
+        <source src="./static/videos/teaser.mp4"
+                type="video/mp4">
+      </video>
+      <h2 class="subtitle has-text-centered">
+        <span class="dnerf">Nerfies</span> turns selfie videos from your phone into
+        free-viewpoint
+        portraits.
+      </h2>
+    </div>
+  </div>
+</section-->
+
+
+<!-- USEFUL SECTION - carousel of videos, can add captions too -->
+<!-- section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container">
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item item-steve">
+          <video poster="" id="steve" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/steve.mp4"
+                    type="video/mp4">
+          </video>
+          <h2 class="subtitle has-text-centered">
+            <span class="dnerf">Nerfies</span> turns selfie videos from your phone into
+            free-viewpoint
+            portraits.
+          </h2>
+        </div>
+        <div class="item item-chair-tp">
+          <video poster="" id="chair-tp" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/chair-tp.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-shiba">
+          <video poster="" id="shiba" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/shiba.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-fullbody">
+          <video poster="" id="fullbody" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/fullbody.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-blueshirt">
+          <video poster="" id="blueshirt" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/blueshirt.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-mask">
+          <video poster="" id="mask" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/mask.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-coffee">
+          <video poster="" id="coffee" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/coffee.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-toby">
+          <video poster="" id="toby" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/toby2.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+  </div>
+</section -->
+
+
+
+
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            This work presents a graph neural network (GNN) framework for solving the
+            maximum independent set (MIS) problem, inspired by dynamic programming
+            (DP). Specifically, given a graph, we propose a DP-like recursive algorithm based
+            on GNNs that firstly constructs two smaller sub-graphs, predicts the one with the
+            larger MIS, and then uses it in the next recursive call. To train our algorithm,
+            we require annotated comparisons of different graphs concerning their MIS size.
+            Annotating the comparisons with the output of our algorithm leads to a self-training
+            process that results in more accurate self-annotation of the comparisons and vice
+            versa. We provide numerical evidence showing the superiority of our method vs
+            prior methods in multiple synthetic and real-world datasets.
+          </p>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="columns is-centered has-text-centered">
+          <div class="column is-full-width">
+
+            <h2 class="title is-3">Overview</h2>
+            <div class="tile is-ancestor is-centered" style="vertical-align: middle;">
+              <div class="tile is-parent">
+                <a href="#Methodology" class="tile is-child box">
+                  <p class="subtitle"><font size="-1">Methodology</font></p>
+                </a>
+              </div>
+
+              <div class="tile is-parent">
+                <a href="#Results" class="tile is-child box">
+                  <p class="subtitle"><font size="-1">Results</font></p>
+                </a>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+    <!-- <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+
+        <h2 class="title is-3">Overview</h2>
+        <div class="tile is-ancestor is-centered" style="vertical-align: middle;">
+          <div class="tile is-parent">
+            <a href="#intro" class="tile is-child box">
+              <p class="subtitle"><font size="-1">Introduction</font></p>
+            </a>
+          </div>
+
+          <div class="tile is-parent">
+            <a href="#related-work" class="tile is-child box">
+              <p class="subtitle"><font size="-1">Related Works</font></p>
+            </a>
+          </div>
+
+          <div class="tile is-parent">
+            <a href="#method" class="tile is-child box">
+              <p class="subtitle"><font size="-1">Methodology</font></p>
+            </a>
+          </div>
+
+          <div class="tile is-parent">
+            <a href="#exp" class="tile is-child box">
+              <p class="subtitle"><font size="-1">Experiments</font></p>
+            </a>
+          </div>
+
+          <div class="tile is-parent">
+            <a href="#conclusion" class="tile is-child box">
+              <p class="subtitle"><font size="-1">Conclusion and Limitations</font></p>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div> -->
+    <!--/ Abstract. -->
+
+
+    <!-- USEFUL SECTION - embedded youtube video. -->
+    <!--div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Video</h2>
+        <div class="publication-video">
+          <iframe src="https://www.youtube.com/embed/MrKrnHhk8IA?rel=0&amp;showinfo=0"
+                  frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div-->
+    <!--/ Paper video. -->
+  </div>
+</section>
+
+<section class="section" id="Methodology">
+  <div class="container is-max-desktop content">
+    <h2 class="title">Methodology</h2>
+
+    <p>The Maximum Independent Set (MIS) problem is a well-known challenge in graph theory and combinatorial
+      optimization. This paper presents an approach for MIS by using the idea of Dynamic Programming and
+      self-supervised learning. Solutions to this problem are vital for applications in network theory,
+      scheduling problems, and resource allocation.</p>
+
+    <h3>A Graph Neural Network-Based Algorithm for MIS</h3>
+
+    <p><b>MIS Algorithms Induced by Graph Comparing Functions</b></p>
+
+    <p>We employ graph comparing functions to analyze graph structures. These functions are designed to compare
+      different graphs, helping to determine which of the graphs has a larger estimated MIS.
+      By combining the tree search of dynamic programming with these comparator function, independent sets can be
+      generated. We refer to this as the induced algorithm of a comparator function, and it is depicted below:</p>
+
+      <div class="box" align="center">
+                  <img src="static/images/algorithm.png" alt="Algorithm">
+                </div>
+
+    <p><b>Comparators through Graph Neural Networks</b></p>
+    <p>The core of our approach involves developing comparators using GNNs. These comparators are trained to
+      recognize patterns and structures within graphs that are indicative of optimal independent sets. GNNs excel
+      in this task due to their ability to capture the relational information between nodes and edges in a graph,
+       a crucial aspect for solving the MIS problem.</p>
+
+       <div class="box" align="center">
+                   <img src="static/images/model_architecture.svg" alt="Model Architecture">
+                 </div>
+
+                 <p> This figure illustrates the architecture of our model. An input graph is passed into the model with
+                   zero node embeddings. These nodes are processed through a Graph Embedding Module (GEM) for K iterations,
+                   resulting in the final node embeddings. These embeddings are then averaged to obtain a graph embedding
+                   , which is put through multiple fully-connected layers to obtain a final logit value for the input graph.
+                 When comparing multiple graphs, a larger estimated MIS means a larger logit value.</p>
+
+
+    <p><b>Inference Algorithm</b></p>
+    <p>After training, the GNN-based comparators are used in an inference algorithm to compare between subgraphs of possible
+      branches in the DP tree. Once a terminal state is reached, a feasible independent set in created.</p>
+
+    <h3>Self-Supervised Training through the Consistency Property</h3>
+
+    <p>A notable aspect of our methodology is the implementation of self-supervised training using the consistency
+      property of graph comparing functions.</p>
+
+    <p><b>Consistent Graph Comparing Functions</b></p>
+    <p>Consistency is a property of graph comparing functions that ensures that the algorithm's performance is
+      stable and reliable. <i>We prove that when a comparator is consistent, its induces algorithm is optimal</i>.</p>
+
+    <p><b>Training a Consistent Comparator</b></p>
+    <p>Training a consistent comparator involves a <b>self-supervised learning</b> approach, where the model is trained
+      using a dataset with labels that are generated by its own estimates. This method is particularly
+       advantageous as it reduces the dependency on labeled datasets, which are often scarce in NP-Hard problems.
+       The figure below illustrates the 3-step process of generating a dataset, which is done multiple times
+       during the course of training.</p>
+
+       <div class="box" align="center">
+                   <img src="static/images/dataset_creation_fig.svg" alt="Dataset Creation">
+                 </div>
+
+  </div>
+</section>
+
+<section class="section" id="Results">
+  <div class="container is-max-desktop content">
+    <h2 class="title">Results</h2>
+    <p>We conducted several experiments to evaluate the efficacy of our proposed methods. Here are
+      the key findings:</p>
+
+    <ul>
+<li><b>Benchmark Results</b>: We assessed our model on three standard datasets (COLLAB, TWITTER, and RB) and introduced the
+   SPECIAL dataset for graphs with a specific distributions. Our model's performance was quantified using the average
+    approximation ratios on these datasets, comparing the solution's independent set size with the optimum solution
+     computed using the Gurobi solver. The results highlighted the strong performance of our model, outperforming
+     all previous deep learning-based​​ approaches.</li>
+
+<li><b>Out-of-Distribution Results</b>: Our model demonstrated generalization capabilities in out-of-distribution
+   graphs. This was evident from the out-of-distribution approximation ratios during inference, where the model
+   was trained on one dataset and tested on others. The results indicated that the learned comparator was extracting
+    robust patterns, enabling effective generalization across different graph types​​.</li>
+
+<li><b>Consistency Experiment</b>: We conducted additional experiments on the consistency of the comparator. The consistency
+   value, representing the proportion of graph pairs fulfilling the consistency equation, showed an increasing trend
+    as training progressed. This increase in consistency was observed across three different benchmark datasets,
+    indicating that the comparator's decision-making became more consistent and reliable over time​​. This can be seen in the figure below.</li>
+</ul>
+
+<div class="box" align="center">
+            <img src="static/images/consistency.svg" alt="Consistency Graph">
+          </div>
+
+  </div>
+</section>
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{brusca2023maximum,
+  title={Maximum Independent Set: Self-Training through Dynamic Programming},
+  author={Brusca, Lorenzo and Quaedvlieg, Lars CPM and Skoulakis, Stratis and Chrysos, Grigorios G and Cevher, Volkan},
+  journal={arXiv preprint arXiv:2310.18672},
+  year={2023}
+}</code></pre>
+  </div>
+</section>
+
+<section class="section" id="acknowledgement">
+  <div class="container is-max-desktop content">
+    <h2 class="title">Acknowledgements</h2>
+    <p>This work was supported by the Swiss National Science Foundation (SNSF) under grant number
+200021_205011, by Hasler Foundation Program: Hasler Responsible AI (project number 21043) and
+Innovation project supported by Innosuisse (contract agreement 100.960 IP-ICT). We further thank
+Elias Abad Rocamora and Nikolaos Karalias for the useful feedback on the paper draft as well as
+Planny for the helpful discussions.</p>
+  </div>
+</section>
+
+<!-- BIBTEXT REFERENCE -->
+<!--section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{park2021nerfies,
+  author    = {Park, Keunhong and Sinha, Utkarsh and Barron, Jonathan T. and Bouaziz, Sofien and Goldman, Dan B and Seitz, Steven M. and Martin-Brualla, Ricardo},
+  title     = {Nerfies: Deformable Neural Radiance Fields},
+  journal   = {ICCV},
+  year      = {2021},
+}</code></pre>
+  </div>
+</section-->
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <!-- LINK TO PAPER -->
+      <!--a class="icon-link"
+         href="./static/videos/nerfies_paper.pdf">
+        <i class="fas fa-file-pdf"></i>
+      </a-->
+      <a class="icon-link" href="https://github.com/lars-quaedvlieg/Predator-Prey-Unity-MLAgents" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p><em>
+            This website is based on the <a href="https://github.com/nerfies/nerfies.github.io" target="_blank">Nerfies website template</a>,
+            which is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </em></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
