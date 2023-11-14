@@ -58,7 +58,7 @@ The folder structure is the following:
   - `--model_name`: name of the model used for testing
   - `--flag_density`: flag for using a better implementation of the code
 
-## More information on Π-nets
+## More information on the paper
 
 More information about the paper such as a pitch and poster, as presented at NeurIPS'23, can be found on the [conference website](https://neurips.cc/virtual/2023/poster/70728).
 
